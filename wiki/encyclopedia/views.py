@@ -12,13 +12,14 @@ def index(request):
         "entries": util.list_entries()
     })
 
+
 def add(request):
     if request.method == "POST":
         form = NewEntryForm(request.POST)
         if form.is_valid():
             entry = form.cleaned_data["entry"]
-            request.session["entries"] += [entry]
-            return HttpResponseRedirect(reverse("encyclopedia:index"))
+            # request.session["entries"] += [entry]
+            # return HttpResponseRedirect(reverse, "encyclopedia/index.html")
 
         else:
             return render(request, "encyclopedia/add.html", {
