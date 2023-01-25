@@ -18,8 +18,8 @@ def add(request):
         form = NewEntryForm(request.POST)
         if form.is_valid():
             entry = form.cleaned_data["entry"]
-            # request.session["entries"] += [entry]
-            # return HttpResponseRedirect(reverse, "encyclopedia/index.html")
+            request.session["entries"] += [entry]
+            return HttpResponseRedirect(reverse, "encyclopedia/index.html")
 
         else:
             return render(request, "encyclopedia/add.html", {

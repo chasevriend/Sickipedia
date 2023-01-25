@@ -6,7 +6,7 @@
 
 {% block body %}
     <h1>New Page</h1>
-    <form action="{% url 'encyclopedia:index' %}" method="post">
+    <form action="{% url 'encyclopedia:add' %}" method="post">
         {% csrf_token %}
         {{ form }}
         <button type="submit" name="save">Add</button>
