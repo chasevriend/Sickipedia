@@ -1,36 +1,33 @@
-from django import forms
-from django.http import HttpResponseRedirect
+import markdown2
+import secrets
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django import forms
 from django.urls import reverse
 from . import util
+from markdown2 import Markdown
+
 
 class NewEntryForm(forms.Form):
-    form = forms.CharField(label="New Entry")
+    title = forms.CharField(label="New Entry")
+    content = forms.CharField()
+    edit = forms.BooleanField(initial=False, widget=forms.HiddenInput(), required=False)
+    
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries()
     })
 
-
-def add(request):
-    if request.method == "POST":
-        form = NewEntryForm(request.POST)
-        if form.is_valid():
-            entry = form.cleaned_data["entry"]
-            request.session["entries"] += [entry]
-            return HttpResponseRedirect(reverse, "encyclopedia/index.html")
-
-        else:
-            return render(request, "encyclopedia/add.html", {
-                "form": form
-            })
-
-    return render(request, "encyclopedia/add.html", {
-        "form": NewEntryForm()
-    })
-
-def random(request):
-    return render(request, "encyclopedia/random.html", {
-        "random": random
-    })
+def entry(request, entry):
+    markdowner = Markdown()
+    entryPage = util.get_entry(entry)
+    if entryPage is None:
+        return render(request, "encyclopedia/nonExistingEntry.html", {
+            "entryTitle": entry
+        })
+    else: 
+        return render(request, "encyclopedia/entry.html", {
+            "entry": markdowner.convert(entryPage),
+            "entryTitle": entry
+        })
