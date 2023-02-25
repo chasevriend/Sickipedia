@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    background-color: white;
+    background-color: #606470;
 }
 
 code {
@@ -10,6 +10,7 @@ code {
 h1 {
     margin-top: 0px;
     padding-top: 20px;
+    color: #f7f7f7;
 }
 
 textarea {
@@ -18,7 +19,7 @@ textarea {
 }
 
 .main {
-    padding: 5px;
+    padding: 10px;
 }
 
 .search {
@@ -28,12 +29,12 @@ textarea {
 }
 
 .sidebar {
-    background-color: #f0f0f0;
+    background-color: #323643;
     height: 100vh;
     padding: 20px;
-    margin: 0;
 }
 
 .sidebar h2 {
     margin-top: 5px;
+    color: #f7f7f7;
 }
